@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مطعم حديقة المدينة | بيتزا طازجة ومثلجات لذيذة</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-green: #2e7d32;
+            --secondary-green: #4caf50;
+            --light-green: #c8e6c9;
+            --primary-orange: #ff9800;
+            --secondary-orange: #ffb74d;
+            --dark-orange: #f57c00;
+            --light-bg: #f9f9f9;
+            --dark-text: #333;
+            --light-text: #fff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+            direction: rtl;
+        }
+
+        header {
+            background: linear-gradient(to right, var(--primary-green), var(--primary-orange));
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo i {
+            font-size: 2rem;
+            color: var(--light-text);
+        }
+
+        .logo h1 {
+            color: var(--light-text);
+            font-size: 1.8rem;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--light-text);
+            padding: 10px 15px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        nav a:hover, nav a.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .order-btn {
+            background-color: var(--dark-orange);
+            color: var(--light-text);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .order-btn:hover {
+            background-color: #e65100;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                        url('https://images.unsplash.com/photo-1593504049359-74330189a345?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1527&q=80');
+            background-size: cover;
+            background-position: center;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--light-text);
+            padding: 0 20px;
+        }
+
+        .hero-content {
+            max-width: 800px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        .section {
+            padding: 80px 5%;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            position: relative;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            display: inline-block;
+            padding: 0 20px;
+            background-color: var(--light-bg);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary-green), var(--primary-orange));
+            z-index: 0;
+        }
+
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .menu-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .menu-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .pizza-1 { background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=781&q=80'); }
+        .pizza-2 { background-image: url('https://images.unsplash.com/photo-1604382355076-af4b0eb60143?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+        .pizza-3 { background-image: url('https://images.unsplash.com/photo-1593560708920-61dd98c46a4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=735&q=80'); }
+        .icecream-1 { background-image: url('https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+        .icecream-2 { background-image: url('https://images.unsplash.com/photo-1536304993881-ff6e9eefa2a6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'); }
+        .icecream-3 { background-image: url('https://images.unsplash.com/photo-1576506295286-5cda18df43e7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'); }
+
+        .menu-info {
+            padding: 20px;
+        }
+
+        .menu-info h3 {
+            color: var(--primary-green);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .menu-info p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .price {
+            color: var(--dark-orange);
+            font-weight: bold;
+            font-size: 1.3rem;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .delivery {
+            background-color: var(--light-green);
+        }
+
+        .delivery-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .delivery-text {
+            flex: 1;
+        }
+
+        .delivery-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            height: 400px;
+            background: url('https://images.unsplash.com/photo-1601924994987-69e26d50dc26?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80') center/cover;
+        }
+
+        .delivery-features {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .feature i {
+            font-size: 2rem;
+            color: var(--primary-orange);
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .contact-info {
+            background: linear-gradient(to bottom, var(--primary-green), var(--primary-orange));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .contact-details {
+            margin-top: 30px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .contact-item i {
+            font-size: 1.5rem;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-form {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        .form-group textarea {
+            height: 150px;
+            resize: vertical;
+        }
+
+        footer {
+            background: linear-gradient(to right, var(--primary-green), var(--dark-orange));
+            color: var(--light-text);
+            padding: 40px 5% 20px;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            margin-bottom: 20px;
+            font-size: 1.4rem;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+
+        .footer-column h3::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background-color: var(--light-text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--light-green);
+            padding-right: 5px;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: var(--light-text);
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            background: var(--light-text);
+            color: var(--primary-green);
+            transform: translateY(-5px);
+        }
+
+        .copyright {
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 992px) {
+            .delivery-content {
+                flex-direction: column;
+            }
+            
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                padding: 15px;
+            }
+            
+            nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .delivery-features {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fas fa-pizza-slice"></i>
+            <h1>حديقة المدينة</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#" class="active">الرئيسية</a></li>
+                <li><a href="#menu">قائمة الطعام</a></li>
+                <li><a href="#delivery">التوصيل</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
+            </ul>
+        </nav>
+        <button class="order-btn" onclick="scrollToOrder()">
+            <i class="fas fa-shopping-cart"></i> اطلب الآن
+        </button>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>استمتع بألذ البيتزا والمثلجات الطازجة</h2>
+            <p>في مطعم حديقة المدينة، نقدم لك أطيب البيتزا الإيطالية المصنوعة من أفضل المكونات الطازجة، ومثلجاتنا المنعشة المصنوعة يدوياً</p>
+            <button class="order-btn" onclick="scrollToOrder()">
+                <i class="fas fa-shopping-cart"></i> اطلب الآن
+            </button>
+        </div>
+    </section>
+
+    <section class="section" id="menu">
+        <div class="section-title">
+            <h2><i class="fas fa-utensils"></i> قائمة الطعام</h2>
+        </div>
+        <div class="menu-container">
+            <div class="menu-card">
+                <div class="menu-img pizza-1"></div>
+                <div class="menu-info">
+                    <h3>بيتزا الخضار المشوية</h3>
+                    <p>عجينة رقيقة مع خضار مشوية طازجة وجبنة موتزاريلا وصوص الطماطم</p>
+                    <span class="price">25 ريال</span>
+                </div>
+            </div>
+            
+            <div class="menu-card">
+                <div class="menu-img pizza-2"></div>
+                <div class="menu-info">
+                    <h3>بيتزا اللحم البقري</h3>
+                    <p>لحم بقري طازج مع فطر طازج وجبنة شيدر وموتزاريلا وصوص الطماطم</p>
+                    <span class="price">30 ريال</span>
+                </div>
+            </div>
+            
+            <div class="menu-card">
+                <div class="menu-img pizza-3"></div>
+                <div class="menu-info">
+                    <h3>بيتزا الدجاج المشوي</h3>
+                    <p>دجاج مشوي طازج مع فلفل ألوان وجبنة موتزاريلا وصوص الطماطم</p>
+                    <span class="price">28 ريال</span>
+                </div>
+            </div>
+            
+            <div class="menu-card">
+                <div class="menu-img icecream-1"></div>
+                <div class="menu-info">
+                    <h3>مثلجات الشوكولاتة</h3>
+                    <p>ثلاث كرات من مثلجات الشوكولاتة البلجيكية مع قطع شوكولاتة</p>
+                    <span class="price">15 ريال</span>
+                </div>
+            </div>
+            
+            <div class="menu-card">
+                <div class="menu-img icecream-2"></div>
+                <div class="menu-info">
+                    <h3>مثلجات الفانيليا</h3>
+                    <p>ثلاث كرات من مثلجات الفانيليا مع صلصة الكراميل وجوز الهند</p>
+                    <span class="price">15 ريال</span>
+                </div>
+            </div>
+            
+            <div class="menu-card">
+                <div class="menu-img icecream-3"></div>
+                <div class="menu-info">
+                    <h3>مثلجات الفراولة</h3>
+                    <p>ثلاث كرات من مثلجات الفراولة الطازجة مع صلصة الفراولة</p>
+                    <span class="price">15 ريال</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section delivery" id="delivery">
+        <div class="section-title">
+            <h2><i class="fas fa-truck"></i> خدمة التوصيل</h2>
+        </div>
+        <div class="delivery-content">
+            <div class="delivery-text">
+                <h3>توصيل سريع ومجاني للطلبات فوق 50 ريال</h3>
+                <p>نقدم لكم خدمة التوصيل السريع إلى جميع أنحاء المدينة. طلباتكم تصل إليكم طازجة وساخنة كما لو كنتم معنا في المطعم.</p>
+                
+                <div class="delivery-features">
+                    <div class="feature">
+                        <i class="fas fa-shipping-fast"></i>
+                        <div>
+                            <h4>توصيل سريع</h4>
+                            <p>خلال 30 دقيقة أو أقل</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <div>
+                            <h4>دفع آمن</h4>
+                            <p>الدفع عند الاستلام أو عبر الإنترنت</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-headset"></i>
+                        <div>
+                            <h4>دعم فني</h4>
+                            <p>متاح على مدار الساعة</p>
+                        </div>
+                    </div>
+                    
+                    <div class="feature">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>تتبع الطلب</h4>
+                            <p>تتبع طلبك لحظة بلحظة</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="order-btn" style="margin-top: 30px;" onclick="scrollToOrder()">
+                    <i class="fas fa-phone-alt"></i> اتصل بنا للطلب
+                </button>
+            </div>
+            
+            <div class="delivery-image"></div>
+        </div>
+    </section>
+
+    <section class="section" id="contact">
+        <div class="section-title">
+            <h2><i class="fas fa-envelope"></i> تواصل معنا</h2>
+        </div>
+        <div class="contact-container">
+            <div class="contact-info">
+                <h3><i class="fas fa-info-circle"></i> معلومات التواصل</h3>
+                <p>يسعدنا تواصلكم معنا في أي وقت، فريق عملنا جاهز للرد على استفساراتكم وخدمتكم على مدار الساعة.</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <div>
+                            <h4>العنوان</h4>
+                            <p>شارع المدينة، حي الزهور، الرياض</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-phone-alt"></i>
+                        <div>
+                            <h4>الهاتف</h4>
+                            <p>+966 11 123 4567</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div>
+                            <h4>البريد الإلكتروني</h4>
+                            <p>info@citygarden.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <h4>ساعات العمل</h4>
+                            <p>يومياً من 4:00 مساءً - 12:00 منتصف الليل</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3>أرسل لنا رسالة</h3>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <label for="name">الاسم الكامل</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">البريد الإلكتروني</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">الموضوع</label>
+                        <input type="text" id="subject" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">الرسالة</label>
+                        <textarea id="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="order-btn">
+                        <i class="fas fa-paper-plane"></i> إرسال الرسالة
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer id="footer">
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>عن المطعم</h3>
+                <p>مطعم حديقة المدينة يقدم ألذ البيتزا والمثلجات الطازجة المصنوعة من أفضل المكونات الطبيعية، في جو مميز وخدمة ممتازة.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-whatsapp"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-column">
+                <h3>روابط سريعة</h3>
+                <ul class="footer-links">
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#menu">قائمة الطعام</a></li>
+                    <li><a href="#delivery">خدمة التوصيل</a></li>
+                    <li><a href="#contact">تواصل معنا</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-column">
+                <h3>ساعات العمل</h3>
+                <ul class="footer-links">
+                    <li><strong>السبت - الخميس:</strong> 4:00 مساءً - 12:00 منتصف الليل</li>
+                    <li><strong>الجمعة:</strong> 5:00 مساءً - 1:00 صباحاً</li>
+                    <li><strong>العطل الرسمية:</strong> 4:00 مساءً - 2:00 صباحاً</li>
+                </ul>
+                <button class="order-btn" style="margin-top: 20px;" onclick="scrollToOrder()">
+                    <i class="fas fa-shopping-cart"></i> اطلب الآن
+                </button>
+            </div>
+        </div>
+        
+        <div class="copyright">
+            <p>جميع الحقوق محفوظة &copy; <span id="current-year"></span> مطعم حديقة المدينة</p>
+        </div>
+    </footer>
+
+    <script>
+        // تحديث السنة تلقائياً في الفوتر
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // سكرول سلس للروابط
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // التمرير إلى قسم التوصيل عند الضغط على زر الطلب
+        function scrollToOrder() {
+            document.getElementById('delivery').scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+        
+        // إرسال نموذج التواصل
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('تم إرسال رسالتك بنجاح! سنتواصل معك قريباً.');
+            this.reset();
+        });
+    </script>
+</body>
+</html>
